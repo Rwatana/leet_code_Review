@@ -2,14 +2,11 @@ from typing import List
 
 
 class Solution:
+    
     def targetIndices(self, nums: List[int], target: int) -> List[int]:
-        
         nums.sort()
-        matrix = []
+        index_matrix = []
         for i, num in enumerate(nums):
             if num == target:
-                matrix.append(i)
-
-
-                
-        return matrix
+                index_matrix.append(i)                
+        return index_matrix
