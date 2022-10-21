@@ -13,7 +13,7 @@ class Solution:
                     if j_abs * 2 == i_abs:
                         return True
                     
-                if arr[i]*2 == arr[j]:
+                if arr[i] * 2 == arr[j]:
                         return True
 
         return False
