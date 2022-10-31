@@ -12,3 +12,4 @@ class Solution:
             elif target == num:
                 m += 1
         return list(range(l,m+l))
+    
