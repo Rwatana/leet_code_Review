@@ -6,7 +6,7 @@ class Solution:
         row = len(matrix)
         col = len(matrix[0])
 
-        for i in range (row):
+        for i in range(row):
             for j in range(col):
                 if matrix[i][j] == target:
                     return True
