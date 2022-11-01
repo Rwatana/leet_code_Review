@@ -10,5 +10,4 @@ class Solution:
             for j in range(col):
                 num.append(matrix[i][j])
         num.sort()
-
-        return num[k-1]
+        return num[k - 1]
