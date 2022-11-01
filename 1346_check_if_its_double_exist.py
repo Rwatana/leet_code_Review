@@ -4,7 +4,8 @@ from typing import List
 class Solution:
     def checkIfExist(self, arr: List[int]) -> bool:
         
-        s = set(arr)        
+        s = set(arr)
+                
         SS = s - {0}
         if arr.count(0) > 1:
             return True
