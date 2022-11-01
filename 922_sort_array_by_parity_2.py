@@ -3,7 +3,6 @@ from typing import List
 
 class Solution:
     def sortArrayByParityII(self, nums: List[int]) -> List[int]:
-        
         even = []
         odd = []
         for i in range(len(nums)):
