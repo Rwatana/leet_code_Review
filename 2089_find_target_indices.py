@@ -1,3 +1,4 @@
+# T(n) O(1)
 from typing import List
 
 
