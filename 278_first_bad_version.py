@@ -1,10 +1,17 @@
+# time cpmplexity O(n)
+# space complexityO(1)
+from typing import List
+from typing import isBadversion
+# The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
+
+
 class Solution:
     def firstBadVersion(self, n: int) -> int:
         up, down = 1, n
-        middle = 0
         while up < down:
             middle = (up + down) // 2
-            if isBadVersion(middle) is True:
+            if isBadVersion(middle):
                 down = middle
             else:
                 up = middle + 1
