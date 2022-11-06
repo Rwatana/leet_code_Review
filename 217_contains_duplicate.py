@@ -1,3 +1,5 @@
+# time: O(1)
+# space: O(1)
 from typing import List
 
 
