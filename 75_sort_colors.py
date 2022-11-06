@@ -1,4 +1,5 @@
-# T(n))O(n)
+# time: O(n)
+# space: O(1)
 from typing import List
 
 
