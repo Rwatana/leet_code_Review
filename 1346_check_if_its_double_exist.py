@@ -1,15 +1,18 @@
 # time cpmplexity O(n)
 # space complexityO(1)
+from typing import List
+
+
 class Solution:
     def checkIfExist(self, arr: List[int]) -> bool:
         
-        s = set(arr)        
-        SS = s - {0}
+        set_list = set(arr)
+        new_list = set_list - {0}
         if arr.count(0) > 1:
             return True
 
-        for i in s:
-            if 2*i in SS:
+        for i in set_list:
+            if 2*i in new_list:
                 return True
 
         return False
