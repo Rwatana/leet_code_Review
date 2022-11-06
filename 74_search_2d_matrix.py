@@ -1,10 +1,11 @@
 # time complexity O(logn)
-# space complexity O(n)
+# space complexity O(n^2)
 from typing import List
 
 
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        
         if not matrix:
             return False
         row = len(matrix)
