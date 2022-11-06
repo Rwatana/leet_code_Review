@@ -1,4 +1,5 @@
-# T(n) O(1)
+# Time: O(logn)
+# Space: O(1)
 from typing import List
 
 
