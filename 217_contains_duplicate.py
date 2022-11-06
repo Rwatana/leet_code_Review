@@ -8,4 +8,3 @@ class Solution:
         if len(nums) == len(set(nums)):
             return False
         return True
-
