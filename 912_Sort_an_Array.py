@@ -1,37 +1,25 @@
-#time: O()
-#space: O()
+# time: O(n)
+# space: O(1)
 from typing import List
 
 
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-          
-        def mergeSort(self, nums: List[int]) -> List[int]:
-            if not nums:
-                return nums
-            if len(nums) == 1:
-                return nums
-            mid = len(nums) // 2
-            left_nums = nums[:mid]
-            right_nums = nums[mid:]
-            return self.merge(self.mergeSort(left_nums), self.mergeSort(right_nums))
-        
-        def merge(self, left_nums: List[int], right_nums: List[int]) -> List[int]:
-            
-            i = 0
-            j = 0
-            final_arr = []
-            while i < len(left_nums) and j < len(right_nums):
-                if left_nums[i] <= right_nums[j]:
-                    final_arr.append(left_nums[i])
-                    i += 1
-                else:
-                    final_arr.append(right_nums[j])
+        def merge(nums: List[int], left, right):
+            data_temp = []
+            i, j = left, right
+            while left and right:
+                if left[i] >= right[j]:
+                    data_temp.append(right[j])
                     j += 1
-            while i < len(left_nums):
-                final_arr.append(left_nums[i])
+                else:
+                    data_temp.left(left[i])
+                    i += 1
+            if left:
+                data_temp.left(left[i])
                 i += 1
-            while j < len(right_nums):
-                final_arr.append(right_nums[j])
+            if right:
+                data_temp.append(right[j])
                 j += 1
-            return final_arr
+            for i in len(data_temp) - 1:
+                nums[i] = data_temp[i]
