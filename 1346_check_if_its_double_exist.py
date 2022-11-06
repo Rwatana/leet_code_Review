@@ -1,5 +1,5 @@
-# time cpmplexity O(n)
-# space complexityO(1)
+# time: O(n)
+# space: (1)
 from typing import List
 
 
