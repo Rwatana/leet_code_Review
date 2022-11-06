@@ -1,4 +1,5 @@
-# T(logN) O(N)
+# time: O(logn)
+# space: O(1)
 from typing import List
 
 
@@ -11,7 +12,7 @@ class Solution:
         if nums[-1] < target:
             return len(nums)
         while left <= right:
-            middle = (left + right) // 2
+            middle = (left+right) // 2
             if nums[middle] < target:
                 left = middle + 1
             elif nums[middle] == target:
