@@ -1,12 +1,9 @@
+# time: O(1)
+# space: O(1)
 from typing import List
 
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         nums.sort()
-        length = len(nums) // 2
-        if length == 0:
-            return nums[0]
-        for i in range(len(nums) - 1):
-            if nums[i] == nums[i + length]:
-                return nums[i]
+        return nums[len(nums) // 2]
