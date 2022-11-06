@@ -12,7 +12,7 @@ class Solution:
             return True
 
         for i in set_list:
-            if 2*i in new_list:
+            if 2 * i in new_list:
                 return True
 
         return False
