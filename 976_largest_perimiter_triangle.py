@@ -1,3 +1,5 @@
+# time: O(nlogn)
+# space: O(n)
 from typing import List
 
 
