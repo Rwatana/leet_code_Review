@@ -10,7 +10,7 @@ class Solution:
 
         left, right = 0, len(letters) - 1
         while left <= right:
-            middle = (right + left) // 2
+            middle = (right+left) // 2
             if letters[middle] > target:
                 right = middle - 1
             elif letters[middle] <= target:
