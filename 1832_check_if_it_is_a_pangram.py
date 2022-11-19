@@ -1,3 +1,7 @@
+# time:(n)
+# space: (1)
+
+
 class Solution:
     def checkIfPangram(self, sentence: str) -> bool:
         checker = [0] * 26
