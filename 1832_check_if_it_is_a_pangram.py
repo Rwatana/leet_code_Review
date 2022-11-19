@@ -3,6 +3,7 @@
 
 
 class Solution:
+    
     def checkIfPangram(self, sentence: str) -> bool:
         checker = [0] * 26
         for character in sentence:
