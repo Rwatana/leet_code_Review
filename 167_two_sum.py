@@ -4,6 +4,7 @@ from typing import List
 
 
 class Solution:
+    
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         for i in range(len(numbers)):
             new_target = target - numbers[i]
