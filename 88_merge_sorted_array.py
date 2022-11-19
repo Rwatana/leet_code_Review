@@ -1,3 +1,6 @@
+# time: (n)
+# space: (n)
+
 from typing import List
 
 
