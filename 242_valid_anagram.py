@@ -1,4 +1,6 @@
-# time: O(nlogn)
+# n = len(s)
+# m = len(t)
+# time: O(m+n)
 # space: O(n)
 from collections import Counter
 
