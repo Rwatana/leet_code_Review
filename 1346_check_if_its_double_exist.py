@@ -1,18 +1,17 @@
+# hash map
+# n = len(arr)
 # time: O(n)
-# space: (1)
+# space: O(n)
 from typing import List
 
 
 class Solution:
+    
     def checkIfExist(self, arr: List[int]) -> bool:
-        
-        set_list = set(arr)
-        new_list = set_list - {0}
-        if arr.count(0) > 1:
-            return True
-
-        for i in set_list:
-            if 2 * i in new_list:
+        nums_in_arr = set()
+        for num in arr:
+            if num * 2 in nums_in_arr or num / 2 in nums_in_arr:
                 return True
-
+            
+            nums_in_arr.add(num)
         return False
