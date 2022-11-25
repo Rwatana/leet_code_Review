@@ -1,5 +1,5 @@
-# time: (n)
-# space: (n)
+# time: (m+n)
+# space: (1)
 
 from typing import List
 
