@@ -9,6 +9,7 @@ class Solution:
         double_list = []
         left = 0
         right = len(nums) - 1
+        
         while left < right:
             left_double = (nums[left])**2
             right_double = (nums[right])**2
