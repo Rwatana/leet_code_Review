@@ -1,23 +1,23 @@
-# T(n)
-# S(n)
+# Time: O(n)
+# Space: O(n)
 from typing import List
-from typing import heapq
+import heapq
 
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        h = []
-        d = {}
+        heap_list = []
+        exist_dict = {}
         
         for num in nums:
-            if num in d:
-                d[num] += 1
+            if num in exist_dict:
+                exist_dict[num] += 1
             else:
-                d[num] = 1
+                exist_dict[num] = 1
                 
-        for key, val in d.items():
-            heapq.heappush(h, (val, key))
-            if len(h) > k:
-                heapq.heappop(h)
+        for key, val in exist_dict.items():
+            heapq.heappush(heap_list, (val, key))
+            if len(heap_list) > k:
+                heapq.heappop(heap_list)
                 
-        return [el[1] for el in h]
+        return [element[1] for element in heap_list]
