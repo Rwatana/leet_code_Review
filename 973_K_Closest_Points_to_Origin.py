@@ -1,20 +1,22 @@
-# T(n)
-# S(n)
-
+# Time: O(n)
+# Space: O(n)
 from typing import List
-from typing import heappush
-from typing import heapreplace
+import heapq
 
 
 class Solution:
      
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        h = []
-        for c in points:
-            x, y = c
-            d = -(x ** 2 + y ** 2)
-        if len(h) < k:
-            heappush(h, (d, x, y))
-        elif h[0][0] < d:
-            heapreplace(h, (d, x, y))
-        return [[p[1], p[2]] for p in h]
+        heap_list = []
+        
+        for point in points:
+            element1, element2 = point
+            sum = -(element1 ** 2 + element2 ** 2)
+        if len(heap_list) < k:
+            heappush(heap_list, (sum, element1, element2))
+            
+        elif heap_list[0][0] < sum:
+            heapreplace(heap_list, (sum, element1, element2))
+            
+        return [[heap_element[1], heap_element[2]]
+                for heap_element in heap_list]
