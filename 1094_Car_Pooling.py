@@ -1,7 +1,7 @@
-# T(n)
-# S(n)
+# Time: O(n)
+# Space: O(n)
 from typing import List
-from typing import heapq
+import heapq
 
 
 class Solution:
@@ -10,9 +10,9 @@ class Solution:
         heap = []
         cur = 0
 
-        for p, s, e in trips:
-            heapq.heappush(heap, (s, p))
-            heapq.heappush(heap, (e, -p))
+        for passenger, start, end in trips:
+            heapq.heappush(heap, (start, passenger))
+            heapq.heappush(heap, (end, -passenger))
         while heap:
             if cur <= capacity:
                 cur += heapq.heappop(heap)[1]
