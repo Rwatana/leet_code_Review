@@ -1,20 +1,27 @@
-# T(logn)
-# S(n)
+# Time: O(logn)
+# Space: O(n)
 from typing import List
-from typing import TreeNode
+
+
+class TreeNode:
+    
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
 class Solution:
     
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
-        def createNode(self, s, e, nums):
-            if s > e:
+        def createNode(start, end, nums):
+            if start > end:
                 return None
             
-            mid = (s+e) // 2
-            self.node = TreeNode(nums[mid])
-            self.node.left = createNode(s, mid - 1, nums)
-            self.node.right = createNode(mid + 1, e, nums)
+            mid = (start+end) // 2
+            node = TreeNode(nums[mid])
+            node.left = createNode(start, mid - 1, nums)
+            node.right = createNode(mid + 1, end, nums)
             return node
         
         createNode(0, len(nums) - 1, nums)
