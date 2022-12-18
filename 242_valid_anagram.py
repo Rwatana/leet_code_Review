@@ -10,7 +10,7 @@ class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         char_freq = Counter(s)
         for char in t:
-            if not char in char_freq:
+            if char not in char_freq:
                 return False
             
             else:
