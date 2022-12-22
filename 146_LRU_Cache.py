@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 
 class LRUCache:
+    
     def __init__(self, capacity: int):
         self.cap = capacity
         self.dict = OrderedDict()
