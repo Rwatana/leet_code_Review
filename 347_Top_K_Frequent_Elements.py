@@ -6,18 +6,18 @@ import heapq
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        heap_list = []
-        exist_dict = {}
+        count_heap = []
+        from_num_to_count = {}
         
         for num in nums:
-            if num in exist_dict:
-                exist_dict[num] += 1
+            if num in from_num_to_count:
+                from_num_to_count[num] += 1
             else:
-                exist_dict[num] = 1
+                from_num_to_count[num] = 1
                 
-        for key, val in exist_dict.items():
-            heapq.heappush(heap_list, (val, key))
-            if len(heap_list) > k:
-                heapq.heappop(heap_list)
+        for key, val in from_num_to_count.items():
+            heapq.heappush(count_heap, (val, key))
+            if len(count_heap) > k:
+                heapq.heappop(count_heap)
                 
-        return [element[1] for element in heap_list]
+        return [element[1] for element in count_heap]
