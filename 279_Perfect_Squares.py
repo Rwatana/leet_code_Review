@@ -1,23 +1,27 @@
-# time: O(n**2)
+# n is the value of input
+# time: O(n)
 # space: O(n)
+from collections import deque
+import math
 
 
-class Solution(object):
+class Solution:
 
-    def numSquares(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        if n <= 0:
-            return 0
-        powers = set([i*i for i in range(int(n**0.5)+1)])
+    def numSquares(self, n: int) -> int:
+        queue = deque([n])
+        depth = 0
+        appeared_num = set()
+        while queue:
+            depth += 1
+            width = len(queue)
+            for _ in range(width):
+                current_num = queue.popleft()
+                appeared_num.add(current_num)
+                for num in range(1, int(math.sqrt(current_num)) + 1):
+                    if current_num - num ** 2 == 0:
+                        return depth
 
-        def search_possibility(nums):
-            if powers & nums:
-                return 1
-            newnums = set()
-            newnums.update({num - p for num in nums for p in powers if num - p >= 0})
-            return search_possibility(newnums) + 1
+                    if not current_num - num ** 2 in appeared_num:
+                        queue.append(current_num - num ** 2)
 
-        return search_possibility(set([n]))
+        raise ValueError(f"The input number `{n}` is not a perfect square.")
