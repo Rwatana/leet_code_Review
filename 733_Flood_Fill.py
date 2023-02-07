@@ -4,16 +4,12 @@ from collections import deque
 from typing import List
 
 
-class Solution(object):
+class Solution:
 
-    def floodFill(self, image, sr, sc, color) -> List[List[int]]:
-        """
-        :type image: List[List[int]]
-        :type sr: int
-        :type sc: int
-        :type color: int
-        :rtype: List[List[int]]
-        """
+    def floodFill(self,
+                  image: List[List[int]],
+                  sr: int, sc: int,
+                  color: int) -> List[List[int]]:
         directions = [(0, -1), (0, 1), (1, 0), (-1, 0)]
         queue = deque()
         queue.append((sr, sc))
