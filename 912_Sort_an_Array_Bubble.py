@@ -1,18 +1,13 @@
+# n = len(arr)
 # time: O(n**2)
 # space: O(1)
 
 
 class Solution(object):
     def sortArray_bubbleSort(self, arr):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        change = True
-        while change:
-            change = False
-            for i in range(len(arr) - 1):
-                if arr[i] > arr[i + 1]:
-                    arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                    change = True
+        arr_length = len(arr)
+        for i in range(arr_length):
+            for j in range(arr_length - 1, i, -1):
+                if arr[j - 1] > arr[j]:
+                    arr[j], arr[j - 1] = arr[j - 1], arr[j]
         return arr

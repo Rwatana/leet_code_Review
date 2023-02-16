@@ -1,33 +1,31 @@
 # time: O(nlogn)
 # space: O(1)
+from typing import List
 
 
 class Solution(object):
-    def sortArray_bubbleSort(self, arr):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        def binary_search(arr, low, hig, ele):
-            if low == hig:
-                if arr[low] > ele:
-                    return low
-                else:
-                    return low + 1
-            elif low > hig:
+    def binary_search(self, arr: List[int], low: int, hig: int, ele: int) -> int:
+        if low == hig:
+            if arr[low] > ele:
                 return low
-
-            mid = (low + hig) // 2
-            if arr[mid] < ele:
-                return binary_search(arr, mid + 1, hig, ele)
-            elif arr[mid] > ele:
-                return binary_search(arr, low, mid - 1, ele)
             else:
-                return mid
+                return low + 1
+        elif low > hig:
+            return low
 
-        def insert_sort_bin(arr):
-            for i in range(1, len(arr)):
-                ele = arr[i]
-                ind = binary_search(arr, 0, i - 1, ele)
-                arr[:] = arr[:ind] + [ele] + arr[ind:i] + arr[i + 1:]
-            return arr
+        middle = (low + hig) // 2
+        if arr[middle] < ele:
+            return self.binary_search(arr, middle + 1, hig, ele)
+        elif arr[middle] > ele:
+            return self.binary_search(arr, low, middle - 1, ele)
+        else:
+            return middle
+    
+    def insert_sort_bin(self, arr: List[int]) -> List[int]:
+        for i in range(1, len(arr)):
+            ele = arr[i]
+            appropriate_index = self.binary_search(arr, 0, i - 1, ele)
+            arr[:] = arr[:appropriate_index]
+            + [ele] + arr[appropriate_index:i]
+            + arr[i + 1:]
+        return arr
