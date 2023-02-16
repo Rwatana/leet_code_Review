@@ -11,10 +11,10 @@ class Solution:
     def floodFill(
         self,
         image: List[List[int]],
-        sr: int,
-        sc: int,
+        start_row: int,
+        start_colum: int,
         color: int
-            ) -> List[List[int]]:
+        ) -> List[List[int]]:
         """Function to perform a "flood fill" on the image starting from the
         pixel 'image[sr][sc]'.
         To perform a "flood fill", consider the starting pixel, plus any pixels
@@ -33,17 +33,19 @@ class Solution:
         """
         directions = [(0, -1), (0, 1), (1, 0), (-1, 0)]
         queue = deque()
-        queue.append((sr, sc))
+        queue.append((start_row, start_colum))
         visited = set()
-        oldColor = image[sr][sc]
+        oldColor = image[start_row][start_colum]
 
         while queue:
-            sr, sc = queue.popleft()
-            image[sr][sc] = color
+            start_row, start_colum = queue.popleft()
+            image[start_row][start_colum] = color
             for direction in directions:
-                newSr, newSc = sr + direction[0], sc + direction[1]
-                if (newSr >= 0) and (newSr < len(image)) and (newSc >= 0) and (newSc < len(image[0])) and ((newSr, newSc) not in visited) and (image[newSr][newSc] == oldColor):
-                    queue.append((newSr, newSc))
-                    visited.add((newSr, newSc))
-
+                new_start_row, new_start_colum = start_row + direction[0], start_colum + direction[1]
+                if (new_start_row >= 0) and (new_start_row < len(image))
+                    and (newSc >= 0) and (newSc < len(image[0]))
+                        and ((newSr, newSc) not in visited)
+                            and (image[newSr][newSc] == oldColor):
+                    queue.append((new_start_row, new_start_colum))
+                    visited.add((new_start_row, new_start_colum))
         return image
