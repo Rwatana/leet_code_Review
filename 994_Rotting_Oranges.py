@@ -1,5 +1,7 @@
-# Time: O(n**2)
-# Space: O(1)
+# m = len(grid)
+# n = len(grid[0])
+# time: O(m x n)
+# space: O(m x n)
 from typing import List
 from collections import deque
 
