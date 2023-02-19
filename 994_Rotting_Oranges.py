@@ -1,48 +1,35 @@
 # Time: O(n**2)
 # Space: O(1)
+from typing import List
+from collections import deque
 
 
-class Solution(object):
-    def orangesRotting(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
-        row, col = len(grid), len(grid[0])
-        visited = set()
-        rotted_group = []
-        ans = -1
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        queue = deque([])
+        fresh_orange_num = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 2:
+                    queue.append((i, j))
 
-        for row_num in range(row):
-            for col_num in range(col):
-                if grid[row_num][col_num] == 2:
-                    rotted_group.append((row_num, col_num))
+                elif grid[i][j] == 1:
+                    fresh_orange_num += 1
+        
+        res = 0
+        while queue and fresh_orange_num > 0:
+            res += 1
+            for _ in range(len(queue)):
+                i, j = queue.popleft()
+                for i_adj, j_adj in (i-1, j), (i+1, j), (i, j-1), (i, j+1):
+                    if (0 <= i_adj < len(grid) and 0 <= j_adj < len(grid[0])
+                            and grid[i_adj][j_adj] == 1):
+                        grid[i_adj][j_adj] = 2
+                        fresh_orange_num -= 1
+                        queue.append((i_adj, j_adj))
 
-        while rotted_group:
-            for x in range(len(rotted_group)):
-                row_num, col_num = rotted_group.pop(0)
-                if (row_num, col_num) in visited:
-                    continue
-                visited.add((row_num, col_num))
-
-                if row_num + 1 < row and grid[row_num+1][col_num] == 1:
-                    grid[row_num+1][col_num] = 2
-                    rotted_group.append((row_num + 1, col_num))
-                if row_num - 1 >= 0 and grid[row_num - 1][col_num] == 1:
-                    grid[row_num-1][col_num] = 2
-                    rotted_group.append((row_num-1, col_num))
-                if col_num + 1 < col and grid[row_num][col_num + 1] == 1:
-                    grid[row_num][col_num+1] = 2
-                    rotted_group.append((row_num, col_num + 1))
-                if col_num - 1 >= 0 and grid[row_num][col_num - 1] == 1:
-                    grid[row_num][col_num - 1] = 2
-                    rotted_group.append((row_num, col_num - 1))
-            ans += 1
-        for row_num in range(row):
-            for col_num in range(col):
-                if grid[row_num][col_num] == 1:
-                    return -1
-
-        if ans == -1:
-            return 0
-        return ans
+        if fresh_orange_num == 0:
+            return res
+        
+        else:
+            return -1
