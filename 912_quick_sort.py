@@ -1,9 +1,10 @@
+# n = len(arr)
 # time: O(nlogn)
 # space: O(logn)
 from typing import List
 
 
-class Solution(object):
+class Solution:
     
     def sortArray(self, arr: List[int]) -> List[int]:
         left = []

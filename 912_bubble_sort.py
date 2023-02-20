@@ -3,7 +3,7 @@
 # space: O(1)
 
 
-class Solution(object):
+class Solution:
     def sortArray_bubbleSort(self, arr):
         arr_length = len(arr)
         for i in range(arr_length):
