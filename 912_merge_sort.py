@@ -22,13 +22,13 @@ class Solution:
             merged_list.extend(right[right_index:])
         return merged_list
 
-    def divide_and_merge_array(self, arr):
+    def divide_and_merge_array(self, arr: List[int]):
         if len(arr) <= 1:
             return arr
 
-        mid = len(arr) // 2
-        left = arr[:mid]
-        right = arr[mid:]
+        middle_of_array = len(arr) // 2
+        left = arr[:middle_of_array]
+        right = arr[middle_of_array:]
         left = self.divide_and_merge_array(left)
         right = self.divide_and_merge_array(right)
         return self.merge(left, right)

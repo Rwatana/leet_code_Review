@@ -6,7 +6,7 @@ from typing import List
 
 class Solution:
     
-    def sortArray(self, arr: List[int]) -> List[int]:
+    def quick_sort(self, arr: List[int]) -> List[int]:
         left = []
         right = []
         if len(arr) <= 1:
