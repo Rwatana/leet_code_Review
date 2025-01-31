@@ -1,91 +1,69 @@
 package main
 
 import (
-	"context"
-	"log"
-	"net/http"
-	"os/signal"
-	"syscall"
-	"time"
-
-	"log_service/internal/server/infrastructure/mysql/db"
-	"log_service/internal/server/infrastructure/mysql/repository"
-	"log_service/internal/server/infrastructure/rabbitmq"
-	"log_service/internal/server/presentation"
-	"log_service/internal/server/usecase"
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
 )
 
-func main() {
-	ctx, stop := signal.NotifyContext(context.Background(),
-		syscall.SIGINT, syscall.SIGTERM)
-	defer stop()
+// Git コマンドを生成する関数
+func generateGitCommands(issueNumber int, issueTitle string) string {
+	// タイトルを小文字に変換し、スペースをアンダースコアに置き換え
+	formattedTitle := strings.ToLower(strings.ReplaceAll(issueTitle, " ", "_"))
+	branchName := fmt.Sprintf("feature/#%d_%s", issueNumber, formattedTitle)
 
-	db, err := db.Connect()
-	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
-	}
-	defer db.Close()
+	// Git コマンドの出力
+	commands := fmt.Sprintf(`git checkout -b %s
+git commit -m "[%d] %s"
+git push origin %s`, branchName, issueNumber, issueTitle, branchName)
 
-	logRepo := repository.NewLogRepository(db)
-	logUseCase := usecase.NewInsertLogUseCase(logRepo)
-	logListUseCase := usecase.NewListLogsUseCase(logRepo)
-	HttpLogHandler := presentation.NewHttpLogHandler(logListUseCase)
-
-	amqpConn, ch, msgs, err := rabbitmq.Connect()
-	if err != nil {
-		log.Fatalf("Failed to connect to RabbitMQ: %v", err)
-	}
-
-	defer amqpConn.Close()
-	defer ch.Close()
-
-	amqpLogHandler := presentation.NewAMQPLogHandler(logUseCase, ch)
-
-	done := make(chan bool)
-	go func() {
-		for d := range msgs {
-			amqpLogHandler.HandleLog(d)
-			if err := d.Ack(false); err != nil {
-				log.Fatalf("Failed to ack message: %v", err)
-			}
-		}
-		done <- true
-	}()
-
-	http.HandleFunc("/logs", HttpLogHandler.HandleLogList)
-
-	go func() {
-		log.Println("HTTP server is running on :8080")
-		if err := http.ListenAndServe(":8080", nil); err != nil {
-			log.Fatalf("Failed to start HTTP server: %v", err)
-		}
-	}()
-
-
-	log.Printf("Waiting for messages. To exit press CTRL^C")
-
-	<-ctx.Done()
-	stop()
-
-	log.Println("received sigint/sigterm, shutting down...")
-	log.Println("press Ctrl^C again to force shutdown")
-
-	if err := ch.Cancel(rabbitmq.QUEUE_NAME, false); err != nil {
-		log.Panic(err)
-	}
-	if err := ch.Close(); err != nil {
-		log.Panic(err)
-	}
-
-	select {
-	case <-done:
-		log.Println("finished processing all jobs")
-	case <-time.After(5 * time.Second):
-		log.Println("timed out waiting for jobs to finish")
-	}
+	return commands
 }
 
+// ユーザー入力を処理する関数
+func parseInput(input string) (int, string, error) {
+	// 入力をトリムして不要なスペースを削除
+	input = strings.TrimSpace(input)
 
+	// "13. Roman to Integer" のような形式で split
+	parts := strings.SplitN(input, ". ", 2)
+	if len(parts) != 2 {
+		return 0, "", fmt.Errorf("invalid input format. Expected format: '13. Roman to Integer'")
+	}
 
+	// issue_number を整数に変換
+	issueNumber, err := strconv.Atoi(parts[0])
+	if err != nil {
+		return 0, "", fmt.Errorf("invalid issue number: %s", parts[0])
+	}
 
+	// issue_title を取得
+	issueTitle := strings.TrimSpace(parts[1])
 
+	return issueNumber, issueTitle, nil
+}
+
+func main() {
+	// ユーザー入力の準備
+	reader := bufio.NewReader(os.Stdin)
+
+	// issue_number と issue_title の入力を受け取る
+	fmt.Print("Enter issue (e.g., '13. Roman to Integer'): ")
+	input, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error reading input.")
+		return
+	}
+
+	// 入力の解析
+	issueNumber, issueTitle, err := parseInput(input)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	// Git コマンドを生成して出力
+	fmt.Println(generateGitCommands(issueNumber, issueTitle))
+}
