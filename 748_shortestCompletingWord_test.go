@@ -6,7 +6,7 @@ import (
 )
 
 // Function to count character occurrences in a string
-func countCharacters(s string) [26]int {
+func countAlphabets(s string) [26]int {
 	var count [26]int
 	for _, ch := range s {
 		if ch >= 'a' && ch <= 'z' {
@@ -17,7 +17,7 @@ func countCharacters(s string) [26]int {
 }
 
 // Function to check if a word include all required letters
-func isIncludingWord(word string, required [26]int) bool {
+func isCompletingWord(word string, required [26]int) bool {
 	wordCount := countCharacters(word)
 	for i := 0; i < 26; i++ {
 		if wordCount[i] < required[i] {
@@ -31,15 +31,16 @@ func isIncludingWord(word string, required [26]int) bool {
 func shortestCompletingWord(licensePlate string, words []string) string {
 	var licenseString string
 	for _, ch := range licensePlate {
-		if (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') {
+		lowerCh := strings.ToLower(string(ch))
+		if lowerCh >= "a" && lowerCh <= "z" {
 			licenseString += strings.ToLower(string(ch))
 		}
 	}
-	required := countCharacters(licenseString)
+	required := countAlphabets(licenseString)
 
 	shortestWord := ""
 	for _, word := range words {
-		if isIncludingWord(word, required) {
+		if isCompletingWord(word, required) {
 			if shortestWord == "" || len(word) < len(shortestWord) {
 				shortestWord = word
 			}
@@ -48,7 +49,6 @@ func shortestCompletingWord(licensePlate string, words []string) string {
 	return shortestWord
 }
 
-
 func TestCountCharacters(t *testing.T) {
 	tests := []struct {
 		name         string
@@ -56,8 +56,8 @@ func TestCountCharacters(t *testing.T) {
 		words        []string
 		expected     string
 	}{
-		{"test1", "1s3 PSt", []string{"step","steps","stripe","stepple"}, "steps"},
-		{"test2", "1s3 456", []string{"looks","pest","stew","show"}, "pest"},
+		{"Upper char case", "s PSt", []string{"step", "steps", "stripe", "stepple"}, "steps"},
+		{"Include number case", "1s3 456", []string{"looks", "pest", "stew", "show"}, "pest"},
 	}
 
 	for _, tt := range tests {
@@ -70,5 +70,3 @@ func TestCountCharacters(t *testing.T) {
 		})
 	}
 }
-
-
