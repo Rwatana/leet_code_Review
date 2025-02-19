@@ -1,3 +1,5 @@
+package leetcodereview
+
 func romanToInt(s string) int {
 	var result, previousValue, currentValue int
 	romanMap := map[uint8]int{
@@ -22,7 +24,3 @@ func romanToInt(s string) int {
 
 	return result
 }
-
-
-
-
