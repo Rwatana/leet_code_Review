@@ -7,13 +7,14 @@ import (
 
 // sanitizeText processes the input text by converting it to lowercase and extracting words.
 func sanitizeText(text string) []string {
-	text = strings.ToLower(text) + " " // Ensure the last word is processed
+	text += " "
 	var words []string
 	var wordBuffer strings.Builder
 
 	for _, char := range text {
+		char = unicode.ToLower(char)
 		if unicode.IsLetter(char) {
-			wordBuffer.WriteRune(char)
+			wordBuffer.WriteByte(byte(char))
 		} else if wordBuffer.Len() > 0 {
 			words = append(words, wordBuffer.String())
 			wordBuffer.Reset()
@@ -24,11 +25,11 @@ func sanitizeText(text string) []string {
 
 // countWordOccurrences counts the number of times each word appears in the list.
 func countWordOccurrences(words []string) map[string]int {
-	wordCounts := make(map[string]int)
+	wordsCounts := make(map[string]int)
 	for _, word := range words {
-		wordCounts[word]++
+		wordsCounts[word]++
 	}
-	return wordCounts
+	return wordsCounts
 }
 
 // removeBannedWords filters out words that are in the banned list.
@@ -41,12 +42,12 @@ func removeBannedWords(wordCounts map[string]int, banned []string) {
 // mostCommonWord finds the most frequently occurring word that is not in the banned list.
 func mostCommonWord(paragraph string, banned []string) string {
 	words := sanitizeText(paragraph)
-	wordCounts := countWordOccurrences(words)
-	removeBannedWords(wordCounts, banned)
+	wordsCounts := countWordOccurrences(words)
+	removeBannedWords(wordsCounts, banned)
 
 	var mostCommonWord string
 	maxCount := 0
-	for word, count := range wordCounts {
+	for word, count := range wordsCounts {
 		if count > maxCount {
 			maxCount = count
 			mostCommonWord = word

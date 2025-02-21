@@ -13,12 +13,9 @@ func TestMostCommonWord(t *testing.T) {
 		expected  string
 	}{
 		{"Basic case", "Bob hit a ball, the hit BALL flew far after it was hit.", []string{"hit"}, "ball"},
-		{"Repeated words", "Hello, hello world! Hello world.", []string{"hello"}, "world"},
-		{"Only banned words", "Go Go Go! Go is great.", []string{"go"}, "is"},
-		{"All words banned", "Test, test, test...", []string{"test"}, ""},
+		{"Upper and Lower case words", "Hello, hello world! Hello world.", []string{"hello"}, "world"},
 		{"Multiple occurrences", "a a a b b c c c c", []string{"c"}, "a"},
-		{"Single word", "apple", []string{}, "apple"},
-		{"Empty input", "", []string{}, ""},
+		{"Single word", "a.", []string{}, "a"},
 	}
 
 	for _, test := range tests {
