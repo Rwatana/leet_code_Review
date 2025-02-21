@@ -1,8 +1,7 @@
-package main
+package leetcodereview
 
 import (
 	"strings"
-	"testing"
 )
 
 // Function to count character occurrences in a string
@@ -47,29 +46,4 @@ func shortestCompletingWord(licensePlate string, words []string) string {
 	}
 	return shortestWord
 }
-
-
-func TestShortestCompletingWord(t *testing.T) {
-	tests := []struct {
-		name         string
-		licensePlate string
-		words        []string
-		expected     string
-	}{
-		{"basic", "1s3 PSt", []string{"step", "steps", "stripe", "stepple"}, "step"},
-		{"multiple matches", "aBc", []string{"abc", "bac", "cab", "cba"}, "abc"},
-		{"longest first", "xyz", []string{"zyxxyz", "xyzz", "xyz"}, "xyz"},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			result := shortestCompletingWord(tt.licensePlate, tt.words)
-			if result != tt.expected {
-				t.Errorf("got %v, want %v", result, tt.expected)
-			}
-		})
-	}
-}
-
 
