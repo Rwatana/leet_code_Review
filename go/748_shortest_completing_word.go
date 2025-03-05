@@ -46,4 +46,3 @@ func shortestCompletingWord(licensePlate string, words []string) string {
 	}
 	return shortestWord
 }
-
