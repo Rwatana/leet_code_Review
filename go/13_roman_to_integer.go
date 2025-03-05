@@ -12,7 +12,7 @@ func romanToInt(s string) int {
 		'M': 1000,
 	}
 
-    for i := len(s) - 1; i >= 0; i-- {
+	for i := len(s) - 1; i >= 0; i-- {
 		currentValue = romanMap[s[i]]
 		if currentValue < previousValue {
 			result -= currentValue

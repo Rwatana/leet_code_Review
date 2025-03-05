@@ -33,13 +33,13 @@ func computeSubtreeSum(node *TreeNode, tilt *int) int {
 	return leftSum + rightSum + node.Val
 }
 
-// Helper function to get the absolute value.
-func abs(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
-}
+// // Helper function to get the absolute value.
+// func abs(x int) int {
+// 	if x < 0 {
+// 		return -x
+// 	}
+// 	return x
+// }
 
 // Test function for findTilt
 func TestFindTilt(t *testing.T) {
