@@ -1,5 +1,3 @@
-
-
 package leetcodereview
 
 import (
@@ -84,7 +82,6 @@ func (h *CharMaxHeap) heapifyDown(index int) {
 }
 
 var hasNonLowerAlphabet = regexp.MustCompile(`[^a-z]`)
-
 
 // reorganizeString rearranges the characters in the string s so that no two adjacent characters are the same.
 // It returns the rearranged string and an error if rearrangement is not possible.

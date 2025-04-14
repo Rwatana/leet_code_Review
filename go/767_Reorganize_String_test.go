@@ -35,7 +35,6 @@ func TestReorganizeString(t *testing.T) {
 			expected: "",
 			hasError: true,
 		},
-
 	}
 
 	for _, tc := range tests {
